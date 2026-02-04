@@ -1,0 +1,12 @@
+torch>=2.1
+torchvision>=0.16
+numpy
+pyyaml
+tqdm
+timm
+accelerate
+opencv-python
+scikit-learn
+matplotlib
+pandas
+autogluon.tabular

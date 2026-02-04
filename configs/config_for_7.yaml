@@ -1,0 +1,42 @@
+# Default config template for vit_ran.py (DeiT-Tiny on ImageNet-1K)
+# Edit paths and hyperparameters to reproduce Table 2 in the paper.
+seed: 42
+
+data:
+  train_dir: /path/to/imagenet/train
+  val_dir: /path/to/imagenet/val
+  batch_size: 128
+  num_workers: 8
+
+mixup:
+  mixup_alpha: 0.8
+  cutmix_alpha: 1.0
+  prob: 1.0
+  switch_prob: 0.5
+  mode: batch
+  label_smoothing: 0.1
+  reprob: 0.25
+  rand_augment: rand-m9-mstd0.5-inc1
+
+training:
+  epochs: 100
+  learning_rate: 1.0e-3
+  weight_decay: 0.05
+  mixed_precision: fp16
+  warmup_epochs: 5
+  min_lr: 1.0e-6
+  warmup_lr_init: 1.0e-5
+  checkpoint_path: checkpoints/ran_deit_tiny_best.pth
+
+  # Layer-wise LR decay (LLRD) and rational parameter multipliers
+  layer_decay: 0.75
+  head_lr_mult: 1.0
+  rational_p_mult: 1.0
+  rational_q_mult: 0.5
+  rational_alpha_mult: 0.1
+
+  # Gate init (identity-safe). Paper suggests small alpha (near 0).
+  rational_alpha_init: 0.1
+
+  # Optional: load extra weights (if you want to start from a custom checkpoint)
+  extra_pretrained_path: null
